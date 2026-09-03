@@ -1,4 +1,4 @@
-# 💻 C Programming Hub
+# 💻  C Programming Hub
 
 **Free C Programming Tutorials, Notes, Examples, Exercises & Practical Projects for Diploma Students and Beginners**
 
