@@ -7,7 +7,7 @@ Welcome to **C Programming Hub** — a free, beginner-friendly learning website 
 Learn C programming through easy explanations, working source code, examples, exercises, and real-world programming projects.
 
 
-## 🎓 What You Will Learn
+## 🎓 What  You Will Learn
 
 C Programming Hub covers the essential topics you need to learn C programming from beginner to intermediate level.
 
