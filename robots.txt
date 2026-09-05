@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://lcwebdesigner.github.io/c-programming-hub/sitemap.xml
