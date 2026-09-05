@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>File Handling in C – fopen, fclose, fprintf & Examples</title>
+<meta name="description" content="Learn file handling in C using FILE pointers, fopen, fclose, fprintf, fscanf, fgetc, fputc and text files.">
+<meta name="author" content="Luswa">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#111827">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="canonical" href="https://c-programming-hub-mu.vercel.app/c-file-handling">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="C Programming Hub">
+<meta property="og:title" content="File Handling in C – fopen, fclose, fprintf & Examples">
+<meta property="og:description" content="Learn file handling in C using FILE pointers, fopen, fclose, fprintf, fscanf, fgetc, fputc and text files.">
+<meta property="og:url" content="https://c-programming-hub-mu.vercel.app/c-file-handling">
+<meta property="og:image" content="https://c-programming-hub-mu.vercel.app/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="File Handling in C – fopen, fclose, fprintf & Examples">
+<meta name="twitter:description" content="Learn file handling in C using FILE pointers, fopen, fclose, fprintf, fscanf, fgetc, fputc and text files.">
+<meta name="twitter:image" content="https://c-programming-hub-mu.vercel.app/logo.png">
+<link rel="icon" href="/logo.png" type="image/png">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a class="brand" href="/" aria-label="C Programming Hub home">
+      <span class="brand-code">&lt;/&gt;</span>
+      <span class="logo"><img src="/logo.png" alt="C Programming Hub logo" width="48" height="48"><span>C Programming Hub</span></span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Home</a><a href="/c-programming-tutorial">Tutorial</a>
+      <a href="/c-programming-basics">Basics</a><a href="/c-programming-control-structures">Control</a>
+      <a href="/c-programming-arrays">Arrays</a><a href="/c-programming-functions">Functions</a>
+      <a href="/c-programming-projects">Projects</a><a href="/c-programming-viva-questions">Viva</a>
+    </div>
+  </div>
+</nav>
+<main id="main-content"><header class="hero"><div class="hero-content"><span class="eyebrow">C PROGRAMMING NOTES</span>
+<h1>C File Handling</h1><p class="hero-subtitle">Read and write persistent data using C file streams and standard file I/O functions.</p>
+<div class="hero-actions"><a class="btn btn-primary" href="/">← C Programming Hub</a><a class="btn btn-secondary" href="/c-programming-practical-questions">Practice Questions</a></div></div></header>
+<section class="section container"><div class="section-heading"><div><span class="section-label">TOPIC ROADMAP</span><h2>What You Will Learn</h2></div></div><div class="course-grid"><article class="topic-card"><span class="topic-number">01</span><div><h3>FILE Pointer</h3><p>Understand the concept, syntax, example and common mistakes. Then write your own version.</p></div></article><article class="topic-card"><span class="topic-number">02</span><div><h3>fopen()</h3><p>Understand the concept, syntax, example and common mistakes. Then write your own version.</p></div></article><article class="topic-card"><span class="topic-number">03</span><div><h3>fclose()</h3><p>Understand the concept, syntax, example and common mistakes. Then write your own version.</p></div></article><article class="topic-card"><span class="topic-number">04</span><div><h3>fprintf()</h3><p>Understand the concept, syntax, example and common mistakes. Then write your own version.</p></div></article><article class="topic-card"><span class="topic-number">05</span><div><h3>fscanf()</h3><p>Understand the concept, syntax, example and common mistakes. Then write your own version.</p></div></article><article class="topic-card"><span class="topic-number">06</span><div><h3>fgetc()</h3><p>Understand the concept, syntax, example and common mistakes. Then write your own version.</p></div></article><article class="topic-card"><span class="topic-number">07</span><div><h3>fputc()</h3><p>Understand the concept, syntax, example and common mistakes. Then write your own version.</p></div></article><article class="topic-card"><span class="topic-number">08</span><div><h3>Text Files</h3><p>Understand the concept, syntax, example and common mistakes. Then write your own version.</p></div></article><article class="topic-card"><span class="topic-number">09</span><div><h3>Student Records</h3><p>Understand the concept, syntax, example and common mistakes. Then write your own version.</p></div></article></div></section>
+<section class="section container"><div class="course-intro">
+<h2>Study Notes</h2>
+<p>Start with the definition and purpose of the concept. Learn the basic syntax, identify the role of each part of a program, then compile a small example and experiment with different inputs.</p>
+<h3>Good programming habits</h3>
+<ul><li>Use meaningful variable and function names.</li><li>Indent code consistently.</li><li>Compile frequently so errors are easier to locate.</li><li>Test normal, boundary and unexpected inputs.</li><li>Write comments where they explain intent rather than obvious syntax.</li></ul>
+<h3>Practice method</h3>
+<p>After reading this topic, close the notes and reproduce a small program from memory. Change one requirement, test the result and explain why the output changes.</p>
+</div></section>
+<section class="section container"><div class="section-heading"><div><span class="section-label">RELATED LEARNING</span><h2>Continue Learning</h2></div></div>
+<div class="course-grid"><a class="topic-card" href="/c-programming-tutorial"><div><h3>Complete C Programming Tutorial</h3><p>Follow the full learning path.</p></div></a>
+<a class="topic-card" href="/c-programming-practical-questions"><div><h3>Practical Questions</h3><p>Apply what you have learned.</p></div></a>
+<a class="topic-card" href="/c-programming-viva-questions"><div><h3>Viva Questions</h3><p>Check your understanding.</p></div></a></div></section>
+<section class="section container"><h2>FAQ</h2>
+<details><summary>How do I study this C programming topic?</summary><p>Learn the definition and syntax, type a working example, test it, then solve a similar problem without copying.</p></details>
+<details><summary>Should I memorize C programs?</summary><p>Focus on understanding the logic and common syntax patterns. You should be able to adapt a program to a new problem.</p></details>
+</section></main><footer class="site-footer">
+<div class="container">
+  <h2>C Programming Hub</h2>
+  <p>Free C programming tutorials, notes, examples, practical questions and projects for beginners and college students.</p>
+  <p><a href="/c-programming-tutorial">C Programming Tutorial</a> · <a href="/c-programming-practical-questions">Practical Questions</a> · <a href="/c-programming-viva-questions">Viva Questions</a></p>
+  <p>© 2026 C Programming Hub · <a href="https://luswa-portfolio.vercel.app" rel="author">Luswa</a></p>
+</div>
+</footer>
+<script src="/script.js" defer></script><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://c-programming-hub-mu.vercel.app/c-file-handling#webpage","url":"https://c-programming-hub-mu.vercel.app/c-file-handling","name":"File Handling in C – fopen, fclose, fprintf, fscanf & Examples | C Programming Hub","description":"Learn file handling in C using FILE pointers, fopen, fclose, fprintf, fscanf, fgetc, fputc and text files with practical examples.","isPartOf":{"@id":"https://c-programming-hub-mu.vercel.app/#website"},"inLanguage":"en","breadcrumb":{"@id":"https://c-programming-hub-mu.vercel.app/c-file-handling#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://c-programming-hub-mu.vercel.app/c-file-handling#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://c-programming-hub-mu.vercel.app/"},{"@type":"ListItem","position":2,"name":"C File Handling","item":"https://c-programming-hub-mu.vercel.app/c-file-handling"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I study this C programming topic?","acceptedAnswer":{"@type":"Answer","text":"Learn the definition and syntax, type a working example, test it, then solve a similar problem without copying."}},{"@type":"Question","name":"Should I memorize C programs?","acceptedAnswer":{"@type":"Answer","text":"Focus on understanding the logic and common syntax patterns. You should be able to adapt a program to a new problem."}}]}]}</script>
+</body></html>
