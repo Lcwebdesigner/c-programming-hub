@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://c-programming-hub-mu.vercel.app/sitemap.xml
