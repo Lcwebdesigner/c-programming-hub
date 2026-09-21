@@ -181,6 +181,161 @@ int main(void) {
         </div>
 
     </main>
+<script>
+    const codeEditor = document.getElementById("code");
+    const inputBox = document.getElementById("input");
+    const runBtn = document.getElementById("runBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const outputBox = document.getElementById("output");
+    const statusBox = document.getElementById("status");
 
+    const defaultCode = `#include <stdio.h>
+
+int main(void) {
+    printf("Hello World\\n");
+    return 0;
+}`;
+
+    runBtn.addEventListener("click", async () => {
+
+        const code = codeEditor.value.trim();
+        const input = inputBox.value;
+
+        if (!code) {
+            statusBox.textContent = "Please enter C code.";
+            outputBox.textContent = "";
+            return;
+        }
+
+        runBtn.disabled = true;
+        runBtn.textContent = "⏳ Running...";
+        statusBox.textContent = "Submitting code...";
+        outputBox.textContent = "";
+
+        try {
+
+            // Send the C program to our Vercel API
+            const response = await fetch("/api/compile", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    code: code,
+                    input: input
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Compilation request failed.");
+            }
+
+            if (!data.token) {
+                throw new Error("Compiler did not return a token.");
+            }
+
+            statusBox.textContent = "⏳ Compiling...";
+
+            // Check the compilation result
+            await checkResult(data.token);
+
+        } catch (error) {
+
+            statusBox.textContent = "❌ Error";
+            outputBox.textContent = error.message;
+
+        } finally {
+
+            runBtn.disabled = false;
+            runBtn.textContent = "▶ Run Code";
+        }
+    });
+
+
+    async function checkResult(token) {
+
+        const maxAttempts = 20;
+
+        for (let attempt = 0; attempt < maxAttempts; attempt++) {
+
+            await new Promise(resolve => setTimeout(resolve, 700));
+
+            const response = await fetch(
+                `/api/compile?token=${encodeURIComponent(token)}`
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    result.error || "Unable to get compilation result."
+                );
+            }
+
+            // Status 1 = In Queue
+            // Status 2 = Processing
+            if (result.status && result.status.id <= 2) {
+
+                statusBox.textContent =
+                    `⏳ ${result.status.description}`;
+
+                continue;
+            }
+
+            displayResult(result);
+            return;
+        }
+
+        throw new Error(
+            "Compilation is taking too long. Please try again."
+        );
+    }
+
+
+    function displayResult(result) {
+
+        const status = result.status
+            ? result.status.description
+            : "Unknown";
+
+        statusBox.textContent = `Status: ${status}`;
+
+        let output = "";
+
+        if (result.stdout) {
+            output += result.stdout;
+        }
+
+        if (result.compile_output) {
+            output += result.compile_output;
+        }
+
+        if (result.stderr) {
+            output += result.stderr;
+        }
+
+        if (result.message) {
+            output += result.message;
+        }
+
+        if (!output) {
+            output = "Program finished with no output.";
+        }
+
+        outputBox.textContent = output;
+    }
+
+
+    resetBtn.addEventListener("click", () => {
+
+        codeEditor.value = defaultCode;
+        inputBox.value = "";
+        outputBox.textContent = "Output will appear here...";
+        statusBox.textContent = "Ready";
+
+    });
+</script>
 </body>
 </html>
