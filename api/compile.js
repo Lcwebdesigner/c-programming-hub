@@ -1,62 +1,98 @@
 export default async function handler(req, res) {
-    // Only allow POST requests
-    if (req.method !== "POST") {
-        return res.status(405).json({
-            error: "Method not allowed"
-        });
-    }
-
     try {
-        const { code, input = "" } = req.body || {};
 
-        // Validate code
-        if (!code || typeof code !== "string") {
-            return res.status(400).json({
-                error: "C code is required."
-            });
-        }
+        // ==========================================
+        // CREATE NEW COMPILATION
+        // ==========================================
 
-        if (code.length > 50000) {
-            return res.status(400).json({
-                error: "Code is too large."
-            });
-        }
+        if (req.method === "POST") {
 
-        // Send code to Judge0
-        const response = await fetch(
-            "https://ce.judge0.com/submissions/?base64_encoded=false&wait=true",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    source_code: code,
-                    language_id: 50,
-                    stdin: input
-                })
+            const { code, input = "" } = req.body || {};
+
+            if (!code || typeof code !== "string") {
+                return res.status(400).json({
+                    error: "C code is required."
+                });
             }
-        );
 
-        const result = await response.json();
+            if (code.length > 50000) {
+                return res.status(400).json({
+                    error: "Code is too large."
+                });
+            }
 
-        if (!response.ok) {
-            return res.status(response.status).json({
-                error: result.error || "Compiler service error."
+            const response = await fetch(
+                "https://ce.judge0.com/submissions/?base64_encoded=false",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        source_code: code,
+                        language_id: 50,
+                        stdin: input
+                    })
+                }
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                return res.status(response.status).json({
+                    error: result.error || "Compiler service error."
+                });
+            }
+
+            return res.status(200).json({
+                token: result.token
             });
         }
 
-        return res.status(200).json({
-            status: result.status,
-            stdout: result.stdout || "",
-            stderr: result.stderr || "",
-            compile_output: result.compile_output || "",
-            message: result.message || "",
-            time: result.time || null,
-            memory: result.memory || null
+
+        // ==========================================
+        // GET COMPILATION RESULT
+        // ==========================================
+
+        if (req.method === "GET") {
+
+            const { token } = req.query;
+
+            if (!token) {
+                return res.status(400).json({
+                    error: "Compilation token is required."
+                });
+            }
+
+            const response = await fetch(
+                `https://ce.judge0.com/submissions/${encodeURIComponent(token)}?base64_encoded=false`,
+                {
+                    method: "GET"
+                }
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                return res.status(response.status).json({
+                    error: result.error || "Unable to get compilation result."
+                });
+            }
+
+            return res.status(200).json(result);
+        }
+
+
+        // ==========================================
+        // INVALID METHOD
+        // ==========================================
+
+        return res.status(405).json({
+            error: "Method not allowed."
         });
 
     } catch (error) {
+
         console.error("Compiler error:", error);
 
         return res.status(500).json({
