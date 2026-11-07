@@ -465,3 +465,9 @@ details p { padding: 0 18px 16px; margin: 0; color: var(--muted); }
     html { scroll-behavior: auto; }
     *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/* ---------- Project video series ---------- */
+.video-grid { display: grid; gap: 22px; grid-template-columns: 1fr; }
+.video-item h3 { font-size: 1rem; margin: 10px 0 0; }
+@media (min-width: 700px) { .video-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .video-grid { grid-template-columns: repeat(3, 1fr); } }
